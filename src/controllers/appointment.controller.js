@@ -1,6 +1,6 @@
-import {getConnection} from "./../database/database"
+import {getConnection} from "../database/database"
 
-const getCitas= async (req, res)=>{
+const getAppointments= async (req, res)=>{
     try{
         const connection= await getConnection();
         const result = await connection.query("SELECT id, hora_inicio, hora_fin, fecha, total, estado, cliente, empleado FROM citas");
@@ -12,7 +12,7 @@ const getCitas= async (req, res)=>{
     }
 };
 
-const getCita= async (req, res)=>{
+const getAppointment= async (req, res)=>{
     try{
         console.log(req.params)
         const  {id} = req.params;
@@ -26,7 +26,7 @@ const getCita= async (req, res)=>{
     }
 };
 
-const addCita= async (req, res) =>{
+const addAppointment= async (req, res) =>{
     try{
         const {hora_inicio,hora_fin,fecha,total,estado,cliente,empleado}=req.body;
 
@@ -39,7 +39,7 @@ const addCita= async (req, res) =>{
         
         const connection = await getConnection();
         await connection.query("INSERT INTO citas SET ?",cita );
-        res.json({message:"Language added"});
+        res.json({message:"Cita añadida"});
     }catch(error){
         res.status(500);
         res.send(error.message)
@@ -47,7 +47,7 @@ const addCita= async (req, res) =>{
     }
 };
 
-const updateCita= async (req, res)=>{
+const updateAppointment= async (req, res)=>{
     try{
         console.log(req.params)
         const  {id} = req.params;
@@ -60,7 +60,7 @@ const updateCita= async (req, res)=>{
         };
         const connection= await getConnection();
         const result = await connection.query("UPDATE citas SET ? WHERE id = ?", [cita, id]);
-        res.json(result);
+        res.json({ message: "Cita actualizada" });
     }catch(error){
         res.status(500);
         res.send(error.message);
@@ -68,13 +68,13 @@ const updateCita= async (req, res)=>{
 };
 
 
-const deleteCita= async (req, res)=>{
+const deleteAppointment= async (req, res)=>{
     try{
         console.log(req.params)
         const  {id} = req.params;
         const connection= await getConnection();
         const result = await connection.query("DELETE FROM citas WHERE id = ?", id);
-        res.json(result);
+        res.json({ message: "Cita eliminada" });
     }catch(error){
         res.status(500);
         res.send(error.message);
@@ -85,9 +85,9 @@ const deleteCita= async (req, res)=>{
 
 
 export const methods ={
-    getCitas,
-    addCita,
-    getCita,
-    deleteCita,
-    updateCita
+    getAppointments,
+    addAppointment,
+    getAppointment,
+    deleteAppointment,
+    updateAppointment
 };

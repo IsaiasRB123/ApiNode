@@ -39,7 +39,7 @@ const addRol= async (req, res) =>{
         
         const connection = await getConnection();
         await connection.query("INSERT INTO roles SET ?",rol );
-        res.json({message:"Language added"});
+        res.json({message:"Rol añadido"});
     }catch(error){
         res.status(500);
         res.send(error.message)
@@ -60,7 +60,7 @@ const updateRol= async (req, res)=>{
         };
         const connection= await getConnection();
         const result = await connection.query("UPDATE roles SET ? WHERE id = ?", [rol, id]);
-        res.json(result);
+        res.json({message:"Rol modificado"});
     }catch(error){
         res.status(500);
         res.send(error.message);
@@ -74,7 +74,7 @@ const deleteRol= async (req, res)=>{
         const  {id} = req.params;
         const connection= await getConnection();
         const result = await connection.query("DELETE FROM roles WHERE id = ?", id);
-        res.json(result);
+        res.json({message:"Rol eliminado"});
     }catch(error){
         res.status(500);
         res.send(error.message);
